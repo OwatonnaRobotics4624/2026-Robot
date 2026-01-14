@@ -8,6 +8,8 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
+//import com.revrobotics.spark.config.ClosedLoopConfig;
+//import com.revrobotics.spark.config.FeedForwardConfig;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -67,7 +69,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     // If this line errors on your exact REVLib version, tell me and I'll switch to:
     // config.closedLoop.feedForward.<something...>
-    config.closedLoop.velocityFF(ShooterConstants.kFF);
+    //config.closedLoop.velocityFF(ShooterConstants.kFF);
+    config.closedLoop.feedForward.kV(ShooterConstants.kFF);
 
     // Apply config:
     // - Reset safe params so you're in a known state
