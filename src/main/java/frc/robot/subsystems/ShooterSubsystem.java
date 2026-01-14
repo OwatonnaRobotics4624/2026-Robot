@@ -40,9 +40,7 @@ public class ShooterSubsystem extends SubsystemBase {
     public static final double kI = 0.0;
     public static final double kD = 0.0;
 
-    // NOTE: velocityFF() is deprecated in REVLib in favor of feedForward config,
-    // but it still works on most 2025 builds. If it errors, tell me and I’ll swap to feedForward.
-    public static final double kFF = 0.00017;
+    public static final double feedForwardkV = 0.00017;
 
     // Ready tolerance
     public static final double kRPMTolerance = 75.0;
@@ -70,7 +68,7 @@ public class ShooterSubsystem extends SubsystemBase {
     // If this line errors on your exact REVLib version, tell me and I'll switch to:
     // config.closedLoop.feedForward.<something...>
     //config.closedLoop.velocityFF(ShooterConstants.kFF);
-    config.closedLoop.feedForward.kV(ShooterConstants.kFF);
+    config.closedLoop.feedForward.kV(ShooterConstants.feedForwardkV);
 
     // Apply config:
     // - Reset safe params so you're in a known state
