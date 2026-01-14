@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.util.ShooterMath;
+import frc.robot.Constants.HoodConstants;;
 
 public class AimHoodAndShooter extends Command {
 
@@ -89,8 +90,8 @@ public class AimHoodAndShooter extends Command {
     double bestV = Double.POSITIVE_INFINITY;
     double bestAngle = Double.NaN;
 
-    for (double angleDeg = HoodSubsystem.HoodConstants.kMinAngleDeg;
-         angleDeg <= HoodSubsystem.HoodConstants.kMaxAngleDeg;
+    for (double angleDeg = HoodConstants.kMinAngleDeg;
+         angleDeg <= HoodConstants.kMaxAngleDeg;
          angleDeg += Constants.kAngleStepDeg) {
 
       double theta = Math.toRadians(angleDeg);

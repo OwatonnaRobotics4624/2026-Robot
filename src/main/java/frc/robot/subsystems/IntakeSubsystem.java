@@ -7,38 +7,11 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import edu.wpi.first.math.MathUtil;
-import frc.robot.Constants;
-import frc.robot.subsystems.ShooterSubsystem.ShooterConstants;
+import frc.robot.Constants.IntakeConstants;
+
 
 public class IntakeSubsystem {
-    public static class IntakeConstants {
-        // Hardware
-        public static final int kShooterMotorCAN = 21; // <-- change
-        public static final boolean kMotorInverted = false;
-
-        // Intake tube geometry
-        public static final double kIntakeTubeDiameterMeters = 0.022225; //7/8 of an inch
-        public static final double kIntakeTubeRadiusMeters = kIntakeTubeDiameterMeters / 2.0;
-
-        // Gear ratio: motorRotations * kGearRatio = IntakeTubeRotations
-        public static final double kGearRatio = 1.0;
-
-        // Limits
-        public static final double kMinRPM = 0;
-        public static final double kMaxRPM = 3000; // tune safe max
-
-        // Closed-loop (starter values; tune)
-        public static final double kP = 0.0002;
-        public static final double kI = 0.0;
-        public static final double kD = 0.0;
-
-        public static final double kFF = 0.00017;
-
-        // Ready tolerance
-        public static final double kRPMTolerance = 75.0;
-
-
-    }
+    
 
     //if we are using a neo or vortex (spark flex)
     /*
@@ -83,7 +56,7 @@ public class IntakeSubsystem {
         targetIntakeRPM = intakeRPM;
 
         // Convert flywheel RPM -> motor RPM based on gear ratio
-        double motorRPM = intakeRPM / ShooterConstants.kGearRatio;
+        double motorRPM = intakeRPM / IntakeConstants.kGearRatio;
 
         //if we are using a neo or vortex (spark flex)
         /* 
@@ -119,6 +92,6 @@ public class IntakeSubsystem {
         return Math.abs(getIntakeRPM() - targetIntakeRPM) <= IntakeConstants.kRPMTolerance;
     }
 
-    
+
 
 }
