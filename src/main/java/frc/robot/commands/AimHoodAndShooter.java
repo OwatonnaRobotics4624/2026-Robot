@@ -10,26 +10,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.HoodSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.util.ShooterMath;
-import frc.robot.Constants.HoodConstants;;
+import frc.robot.Constants.HoodConstants;
+import frc.robot.Constants.AimHoodAndShooterConstants;
 
 public class AimHoodAndShooter extends Command {
-
-  public static class Constants {
-    public static final Translation2d kBlueScoreXY = new Translation2d(4.637, 4.072);
-    public static final Translation2d kRedScoreXY  = new Translation2d(11.984, 4.072);
-
-    public static final double kTargetHeightMeters = 1.8288; // 6 ft
-    public static final double kShooterExitHeightMeters = 0.90;
-
-    public static final double kMaxApexHeightMeters = 3.048; // 10 ft
-    public static final double kAngleStepDeg = 0.5;
-
-    public static final double kMinExitSpeedMps = 3.0;
-    public static final double kMaxExitSpeedMps = 25.0;
-
-    public static final Translation2d kFallbackScoreXY = kBlueScoreXY;
-  }
-
   private final ShooterSubsystem shooter;
   private final HoodSubsystem hood;
   private final Supplier<Translation2d> robotXYSupplier;
@@ -51,7 +35,7 @@ public class AimHoodAndShooter extends Command {
     Translation2d targetXY = getAllianceTarget();
 
     double x = robotXY.getDistance(targetXY);
-    double y = Constants.kTargetHeightMeters - Constants.kShooterExitHeightMeters;
+    double y = AimHoodAndShooterConstants.kTargetHeightMeters - AimHoodAndShooterConstants.kShooterExitHeightMeters;
 
     Solution sol = findBestSolution(x, y);
     if (sol == null) {
@@ -92,18 +76,18 @@ public class AimHoodAndShooter extends Command {
 
     for (double angleDeg = HoodConstants.kMinAngleDeg;
          angleDeg <= HoodConstants.kMaxAngleDeg;
-         angleDeg += Constants.kAngleStepDeg) {
+         angleDeg += AimHoodAndShooterConstants.kAngleStepDeg) {
 
       double theta = Math.toRadians(angleDeg);
       double v = ShooterMath.requiredExitSpeed(xMeters, yMeters, theta);
       if (!Double.isFinite(v)) continue;
 
-      if (v < Constants.kMinExitSpeedMps || v > Constants.kMaxExitSpeedMps) continue;
+      if (v < AimHoodAndShooterConstants.kMinExitSpeedMps || v > AimHoodAndShooterConstants.kMaxExitSpeedMps) continue;
 
       double apex = ShooterMath.apexHeight(
-          Constants.kShooterExitHeightMeters, v, theta);
+          AimHoodAndShooterConstants.kShooterExitHeightMeters, v, theta);
 
-      if (apex > Constants.kMaxApexHeightMeters) continue;
+      if (apex > AimHoodAndShooterConstants.kMaxApexHeightMeters) continue;
 
       if (v < bestV) {
         bestV = v;
@@ -119,9 +103,9 @@ public class AimHoodAndShooter extends Command {
     Optional<Alliance> a = DriverStation.getAlliance();
     if (a.isPresent()) {
       return (a.get() == Alliance.Red)
-          ? Constants.kRedScoreXY
-          : Constants.kBlueScoreXY;
+          ? AimHoodAndShooterConstants.kRedScoreXY
+          : AimHoodAndShooterConstants.kBlueScoreXY;
     }
-    return Constants.kFallbackScoreXY;
+    return AimHoodAndShooterConstants.kFallbackScoreXY;
   }
 }

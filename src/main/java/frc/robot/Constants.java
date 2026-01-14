@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix6.signals.InvertedValue;
 
+import edu.wpi.first.math.geometry.Translation2d;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -19,6 +21,35 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  //Autos
+  public static class AutosConstants {
+  
+  }
+
+  //Vision
+  public static class VisionConstants {
+    /** Change these to your limelight NT table names. */
+    public static final String kLLFront = "limelight-front";
+    public static final String kLLLeft  = "limelight-left";
+    public static final String kLLRight = "limelight-right";
+
+    /** If robot is spinning faster than this, ignore vision updates (deg/sec). */
+    public static final double kMaxYawRateDegPerSec = 720.0; // common rule of thumb :contentReference[oaicite:3]{index=3}
+
+    /** Heading std dev (rad). Keep large to mostly trust gyro for heading. :contentReference[oaicite:4]{index=4} */
+    public static final double kThetaStdRad = 999.0;
+
+    /** Base XY std dev (meters) when tags are good. Tune. */
+    public static final double kBaseXYStd = 0.15;
+
+    /** How much to trust measurements as tag distance grows (bigger = trust less). Tune. */
+    public static final double kDistancePenalty = 0.08;
+
+    /** Extra trust bonus for seeing multiple tags (bigger = trust more). Tune. */
+    public static final double kMultiTagBonus = 0.7;
+  }
+  
   //Intake
   public static class IntakeConstants {
     // Hardware
@@ -46,7 +77,8 @@ public final class Constants {
     // Ready tolerance
     public static final double kRPMTolerance = 75.0;
 
-    }
+  }
+
   //Shooter  
   public static class ShooterConstants {
     // Hardware
@@ -77,6 +109,7 @@ public final class Constants {
     // Ready tolerance
     public static final double kRPMTolerance = 75.0;
   }
+  
   //Hood
   public static class HoodConstants {
     public static final int kHoodCAN = 30; // <-- change
@@ -108,5 +141,38 @@ public final class Constants {
 
     public static final double kAngleToleranceDeg = 1.0;
   }
+  
+  //Aim Hood and shooter
+  public static class AimHoodAndShooterConstants {
+    public static final Translation2d kBlueScoreXY = new Translation2d(4.637, 4.072);
+    public static final Translation2d kRedScoreXY  = new Translation2d(11.984, 4.072);
+
+    public static final double kTargetHeightMeters = 1.8288; // 6 ft
+    public static final double kShooterExitHeightMeters = 0.90;
+
+    public static final double kMaxApexHeightMeters = 3.048; // 10 ft
+    public static final double kAngleStepDeg = 0.5;
+
+    public static final double kMinExitSpeedMps = 3.0;
+    public static final double kMaxExitSpeedMps = 25.0;
+
+    public static final Translation2d kFallbackScoreXY = kBlueScoreXY;
+  }
+
+  //Shooter Speed From Position
+  public static class ShooterSpeedFromPositionConstants {
+    public static final Translation2d kBlueScoreXY = new Translation2d(4.637, 4.072);
+    public static final Translation2d kRedScoreXY  = new Translation2d(11.984, 4.072);
+
+    public static final double kTargetHeightMeters = 1.8288; // 6 ft
+    public static final double kShooterExitHeightMeters = 0.90; // measure this
+
+    public static final double kMinExitSpeedMps = 3.0;
+    public static final double kMaxExitSpeedMps = 25.0;
+
+    public static final Translation2d kFallbackScoreXY = kBlueScoreXY;
+  }
+
 
 }
+
