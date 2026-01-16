@@ -4,8 +4,16 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Degrees;
+
 import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.math.geometry.Translation2d;
+
+import edu.wpi.first.units.Unit;
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.AngleUnit;
+import edu.wpi.first.units.Units;
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -52,7 +60,7 @@ public final class Constants {
   //Intake
   public static class IntakeConstants {
     // Hardware
-    public static final int kShooterMotorCAN = 21; // <-- change
+    public static final int kIntakeMotorCAN = 25; // <-- change
     public static final boolean kMotorInverted = false;
 
     // Intake tube geometry
@@ -76,8 +84,44 @@ public final class Constants {
     // Ready tolerance
     public static final double kRPMTolerance = 75.0;
 
+    //Rpms
+    public static final double kFastIntakeRpm = 10000;
+    public static final double kSafeIntakeRpm = 7000;
+    public static final double kSlowIntakeRpm = 4000;
+    
+
   }
 
+  //Intake Pivot
+  public static class IntakePivotConstants {
+     // Hardware
+    public static final int kIntakePivotMotorCAN = 26; // <-- change
+    public static final boolean kMotorInverted = false;
+
+    // Intake Pivot geometry
+    
+
+    // Gear ratio: motorRotations * kGearRatio = IntakePivotRotations
+    public static final double kGearRatio = 1.0;
+
+    // Angle Limits
+    public static final Angle kMinAngle = Angle.ofBaseUnits(-10, Degrees); //-10 degrees
+    public static final Angle kMaxAngle = Angle.ofBaseUnits(100, Degrees); //100 degrees
+
+    // Angles
+    public static final Angle kUpAngle = Angle.ofBaseUnits(0, Degrees); //-10 degrees
+    public static final Angle kDownAngle = Angle.ofBaseUnits(90, Degrees); //-10 degrees
+    
+    // Closed-loop (starter values; tune)
+    public static final double kP = 0.0002;
+    public static final double kI = 0.0;
+    public static final double kD = 0.0;
+
+    public static final double kFF = 0.00017;
+
+    //Angle tolerance
+    public static final Angle kAngleTolerance = Angle.ofBaseUnits(5, Degrees);
+  }
   //Shooter  
   public static class ShooterConstants {
     // Hardware

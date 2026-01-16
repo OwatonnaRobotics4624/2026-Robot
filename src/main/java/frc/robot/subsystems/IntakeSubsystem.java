@@ -1,35 +1,42 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 
-public class IntakeSubsystem {
+
+public class IntakeSubsystem extends SubsystemBase {
     
 
-    //if we are using a neo or vortex (spark flex)
-    /*
-    private final SparkFlex intakeMotor =
-      new SparkFlex(IntakeConstants.kShooterMotorCAN, MotorType.kBrushless);
+    
+    
+    private final SparkMax intakeMotor =
+      new SparkMax(IntakeConstants.kIntakeMotorCAN, MotorType.kBrushless);
 
     private final RelativeEncoder encoder = intakeMotor.getEncoder();
     private final SparkClosedLoopController pid = intakeMotor.getClosedLoopController();
-    */
+    
     
     private double targetIntakeRPM = 0.0;
 
-
+    /** This is the subsystem that controls the sillicone tube on the intake */
     public IntakeSubsystem() {
-        //if we are using a neo or vortex (spark flex)
-        /* 
+        
+         
         // REVLib 2025+ uses config objects + configure()
-        SparkFlexConfig config = new SparkFlexConfig();
+        SparkMaxConfig config = new SparkMaxConfig();
 
         config.inverted(IntakeConstants.kMotorInverted);
 
@@ -41,13 +48,13 @@ public class IntakeSubsystem {
         // If this line errors on your exact REVLib version, tell me and I'll switch to:
         // config.closedLoop.feedForward.<something...>
         //config.closedLoop.velocityFF(IntakeConstants.kFF);
-        config.closedLoop.feedForward.kV(IntakeConstants.feedForwardkV);
+        config.closedLoop.feedForward.kV(IntakeConstants.kFF);
 
         // Apply config:
         // - Reset safe params so you're in a known state
         // - Persist so it survives brownouts/power cycles
         intakeMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        */
+        
     }
 
     /** Sets intake RPM (NOT motor RPM). */
@@ -58,30 +65,23 @@ public class IntakeSubsystem {
         // Convert flywheel RPM -> motor RPM based on gear ratio
         double motorRPM = intakeRPM / IntakeConstants.kGearRatio;
 
-        //if we are using a neo or vortex (spark flex)
-        /* 
+        
+        
         // REVLib 2025+: setSetpoint (setReference is deprecated)
         pid.setSetpoint(motorRPM, SparkBase.ControlType.kVelocity);
-        */
+        
     }
 
     public void stop() {
         targetIntakeRPM = 0.0;
-
-        //if we are using a neo or vortex (spark flex)
-        /*
         intakeMotor.stopMotor();
-        */
+        
     }
     
     /** Returns intake RPM estimate from motor encoder RPM and gear ratio. */
     public double getIntakeRPM() {
-        //if we are using a neo or vortex (spark flex)
-        /*
         double motorRPM = encoder.getVelocity(); // RPM
-        return motorRPM * ShooterConstants.kGearRatio;
-        */
-        return 0;
+        return motorRPM * IntakeConstants.kGearRatio;
     }
 
     public double getTargetIntakeRPM() {
